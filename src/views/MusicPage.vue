@@ -3,11 +3,11 @@
         <HeaderCom :titleObj="titleObj"></HeaderCom>
         <LoadingCom v-if="musicPageState.requesting"></LoadingCom>
         <div class="list-div">
-            <div class="item" v-for="item in musicPagelist">
+            <div v-for="item in musicPagelist" class="item" v-on:click='play(item)'>
                 <p class="top">-音乐-</p>
                 <p class="title">{{ item.title }}</p>
                 <p class="auther">文&nbsp;/&nbsp;{{ item.author.user_name }}</p>
-                <div class="image-content"><img class="cover" :src=item.img_url /></div>
+                <div ref="imageCover" class="image-content" :class="{imageCntent: item.id == appMusci.id}"><img class="cover" :src=item.img_url /></div>
                 <p class="audio-auther">{{ item.music_name }}&nbsp;.&nbsp;{{ item.audio_author }}</p>
                 <p class="words">{{ item.forward }}</p>
                 <div class="bottom-info">
@@ -42,6 +42,9 @@
       },
       musicPagelist () {
         return this.$store.getters.musicPagelist
+      },
+      appMusci () {
+        return this.$store.state.app.music
       }
     },
     beforeRouteEnter (to, from, next) {
@@ -52,6 +55,11 @@
     methods: {
       getDetailData () {
         this.$store.dispatch('getMusic')
+      },
+      play (info) {
+        const flag = this.appMusci.id === info.id
+//        this.$refs.imageCover[0].style.webkitAnimationPlayState = flag ? 'paused' : 'running'
+        this.$store.dispatch('changeMusic', { id: flag ? '' : info.id, play: !flag })
       }
     }
   }
@@ -59,6 +67,11 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    @keyframes ani
+    {
+        0%{ transform:rotate(0deg); }
+        100%{ transform:rotate(360deg); }
+    }
     .content-container {
         height: 100vh;
         width: 100vw;
@@ -121,5 +134,13 @@
     }
     .like {
         color: #fff;
+    }
+    .imageCntent {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+        animation: ani 5s infinite linear;
+        animation-fill-mode:forwards;
     }
 </style>

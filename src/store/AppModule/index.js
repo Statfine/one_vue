@@ -4,12 +4,19 @@
 import * as types from './Type'
 
 const state = {
-  welcome: false
+  welcome: false,
+  music: {
+    id: '',
+    play: false
+  }
 }
 
 const actions = {
   welcome ({ commit }, status) {
     commit(types.WELCOME, status)
+  },
+  changeMusic ({ commit }, status) {
+    commit(types.CHANGE_MUSCI_PALY, status)
   }
 }
 
@@ -20,6 +27,10 @@ const getters = {
 const mutations = {
   [types.WELCOME] (state, status) {
     state.welcome = status
+  },
+  [types.CHANGE_MUSCI_PALY] (state, status) {
+    state.music.id = status.id
+    state.music.play = status.play
   }
 }
 
