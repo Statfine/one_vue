@@ -3,17 +3,20 @@
         <HeaderCom :titleObj="titleObj"></HeaderCom>
         <LoadingCom v-if="musicPageState.requesting"></LoadingCom>
         <div class="list-div">
-            <div v-for="item in musicPagelist" class="item" v-on:click='play(item)'>
-                <p class="top">-音乐-</p>
-                <p class="title">{{ item.title }}</p>
-                <p class="auther">文&nbsp;/&nbsp;{{ item.author.user_name }}</p>
-                <div ref="imageCover" class="image-content" :class="{imageCntent: item.id == appMusci.id}"><img class="cover" :src=item.img_url /></div>
-                <p class="audio-auther">{{ item.music_name }}&nbsp;.&nbsp;{{ item.audio_author }}</p>
-                <p class="words">{{ item.forward }}</p>
-                <div class="bottom-info">
-                    <div>{{ item.post_date.substring(0, 10) }}</div>
-                    <div>{{ item.like_count }}&nbsp;&nbsp;<i class="glyphicon glyphicon-heart like"></i></div>
-                </div>
+            <!--<div v-for="item in musicPagelist" class="item" v-on:click='play(item)'>-->
+                <!--<p class="top">-音乐-</p>-->
+                <!--<p class="title">{{ item.title }}</p>-->
+                <!--<p class="auther">文&nbsp;/&nbsp;{{ item.author.user_name }}</p>-->
+                <!--<div ref="imageCover" class="image-content" :class="{imageCntent: item.id == appMusci.id}"><img class="cover" :src=item.img_url /></div>-->
+                <!--<p class="audio-auther">{{ item.music_name }}&nbsp;.&nbsp;{{ item.audio_author }}</p>-->
+                <!--<p class="words">{{ item.forward }}</p>-->
+                <!--<div class="bottom-info">-->
+                    <!--<div>{{ item.post_date.substring(0, 10) }}</div>-->
+                    <!--<div>{{ item.like_count }}&nbsp;&nbsp;<i class="glyphicon glyphicon-heart like"></i></div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div v-for="item in musicPagelist">
+                <MusicitemCom :item="item"></MusicitemCom>
             </div>
         </div>
     </div>
@@ -22,11 +25,13 @@
 <script>
   import HeaderCom from '../components/Header.vue'
   import LoadingCom from '../components/Loading.vue'
+  import MusicitemCom from '../components/ItemMusic.vue'
   export default {
     name: 'music',
     components: {
       HeaderCom,
-      LoadingCom
+      LoadingCom,
+      MusicitemCom
     },
     data () {
       return {
@@ -42,9 +47,6 @@
       },
       musicPagelist () {
         return this.$store.getters.musicPagelist
-      },
-      appMusci () {
-        return this.$store.state.app.music
       }
     },
     beforeRouteEnter (to, from, next) {
@@ -55,11 +57,6 @@
     methods: {
       getDetailData () {
         this.$store.dispatch('getMusic')
-      },
-      play (info) {
-        const flag = this.appMusci.id === info.id
-//        this.$refs.imageCover[0].style.webkitAnimationPlayState = flag ? 'paused' : 'running'
-        this.$store.dispatch('changeMusic', { id: flag ? '' : info.id, play: !flag })
       }
     }
   }
