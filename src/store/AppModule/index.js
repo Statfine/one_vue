@@ -7,7 +7,9 @@ const state = {
   welcome: false,
   music: {
     id: '',
-    play: false
+    play: false,
+    musicSrc: '',
+    audioOpen: false
   }
 }
 
@@ -29,8 +31,11 @@ const mutations = {
     state.welcome = status
   },
   [types.CHANGE_MUSCI_PALY] (state, status) {
-    state.music.id = status.id
-    state.music.play = status.play
+    for (let obj in status) {
+      state.music[obj] = status[obj]
+    }
+    // state.music.id = status.id
+    // state.music.play = status.play
   }
 }
 

@@ -64,7 +64,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 10px;
     }
     .cover {
         width: 60%;
@@ -74,6 +73,7 @@
     .audio-auther {
         font-size: 1.2rem;
         padding-bottom: 10px;
+        padding-top: 10px;
         color: #6b6b6b;
     }
     .words {
@@ -92,11 +92,11 @@
         color: #fff;
     }
     .imageCntent {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 10px;
-        animation: ani 5s infinite linear;
-        animation-fill-mode:forwards;
+        /*display: flex;*/
+        /*align-items: center;*/
+        /*justify-content: center;*/
+        /*margin-bottom: 10px;*/
+        /*animation: ani 5s infinite linear;*/
+        /*animation-fill-mode:forwards;*/
     }
 </style>
