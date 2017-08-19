@@ -1,6 +1,7 @@
 # one-vue
 
 > A Vue.js project
+<br />
 vue init webpack vue-test
 
 ## Build Setup
