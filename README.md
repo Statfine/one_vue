@@ -2,7 +2,7 @@
 
 > A Vue.js project
 <br />
-vue init webpack vue-test
+vue init webpack projectName
 
 ## Build Setup
 
