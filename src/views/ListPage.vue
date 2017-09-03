@@ -3,14 +3,14 @@
         <HeaderCom :titleObj="titleObj"></HeaderCom>
         <LoadingCom v-if="listPageState.requesting"></LoadingCom>
         <div class="list-div">
-            <div class="item" v-for="item in homePagelist">
+            <div class="item" v-for="(item, index) in homePagelist">
                 <img class="cover" :src=item.img_url />
                 <p class="title">{{ item.title }}&nbsp;&nbsp;|&nbsp;&nbsp;{{ item.pic_info }}</p>
                 <p class="forward">{{ item.forward }}</p>
                 <p class="words">{{ item.words_info }}</p>
-                <div class="bottom-info">
+                <div class="bottom-info" v-on:click='like(item, index)'>
                     <div></div>
-                    <div>{{ item.like_count }}&nbsp;&nbsp;<i class="glyphicon glyphicon-heart like"></i></div>
+                    <div ref='itemI' class="imageCntent">{{ item.like_count }}&nbsp;&nbsp;<i class="glyphicon glyphicon-heart like"></i></div>
                 </div>
             </div>
         </div>
@@ -53,6 +53,12 @@
     methods: {
       getDetailData () {
         this.$store.dispatch('getList')
+      },
+      like (info, index) {
+        console.log(info, index)
+        // this.$refs.itemI[index].style.color = 'red'
+        this.$refs.itemI[index].style.webkitAnimationPlayState = 'running'
+        this.$store.dispatch('likeItem', info)
       }
     }
   }
@@ -108,5 +114,14 @@
     }
     .like {
         color: #fff;
+    }
+    @keyframes myfirst
+    {
+    from {background: red;}
+    to {background: yellow;}
+    }
+    .imageCntent {
+        animation: myfirst 2s linear;
+        animation-fill-mode: backwards;
     }
 </style>

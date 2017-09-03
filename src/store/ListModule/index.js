@@ -3,6 +3,7 @@
  */
 import * as types from './Type'
 import api from '../../Api/api'
+import _ from 'lodash'
 
 const state = {
   list: [],
@@ -19,6 +20,9 @@ const actions = {
       .catch(() => {
         commit(types.GET_LIST_FAIL)
       })
+  },
+  likeItem ({ commit }, item) {
+    commit(types.LIKE, item)
   }
 }
 
@@ -36,6 +40,11 @@ const mutations = {
   },
   [types.GET_LIST_FAIL] (state) {
     state.requesting = false
+  },
+  [types.LIKE] (state, item) {
+    console.log(item.id)
+    const index = _.findIndex(state.list, function (i) { return i.id === item.id })
+    state.list[index].like_count += 1
   }
 }
 
