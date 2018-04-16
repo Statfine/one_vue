@@ -3,7 +3,7 @@
         <HeaderCom :titleObj="titleObj"></HeaderCom>
         <LoadingCom v-if="bookPageState.requesting"></LoadingCom>
         <div class="list-div">
-            <div class="item" v-for="item in bookPagelist">
+            <div class="item" v-for="item in bookPagelist" v-bind:key="item.title">
                 <p class="top">-阅读-</p>
                 <p class="title">{{ item.title }}</p>
                 <p class="auther">文&nbsp;/&nbsp;{{ item.author.user_name }}</p>
